@@ -10,16 +10,25 @@ var torre, torreIMG;
 
 var balas = [];
 var barcos = [];
-//declara as variáveis
-var barcoSpriteSheet, barcoDados;
-//cria variável do tipo matriz
-var barcoAnimacao = [];
 
+var spriteSheet, barcoDados;
+var barcoAnimacao = [];
+var spriteSheetQuebrado, barcoDadosQuebrado;
+var barcoAnimacaoQuebrado = [];
+
+var splashSheet, splashDados, splashAnimacao=[];
 function preload(){
     //carrega a imagem do cenario
     cenario = loadImage("fundo.gif");
-    barcoSpriteSheet = loadImage("./boat/boat.png");
+
+    spriteSheet = loadImage("./boat/boat.png");
     barcoDados = loadJSON("./boat/boat.json");
+
+    spriteSheetQuebrado = loadImage("./boat/brokenBoat.png");
+    barcoDadosQuebrado = loadJSON("./boat/brokenBoat.json");
+
+    splashSheet = loadImage("./waterSplash/waterSplash.png");
+    splashDados = loadJSON("./waterSplash/waterSplash.json");
 }
 
 
@@ -34,15 +43,24 @@ function setup() {
     World.add(world, solo);
 
     var frames = barcoDados.frames;
-    for(var i = 0; i < frames.length; i++ ){
-        var pos = frames[i].position
-        var frame = barcoSpriteSheet.get(pos.x,pos.y,pos.w,pos.h)
-       //add o frame na matriz barcoAnimacao
-        barcoAnimacao.push(frame)
+    for(var i = 0; i < frames.length; i++){
+        var pos = frames[i].position;
+        var img = spriteSheet.get(pos.x, pos.y, 500,500);
+        barcoAnimacao.push(img);
     }
-     
-
-    
+    var frames = barcoDadosQuebrado.frames;
+    for(var i = 0; i < frames.length; i++){
+        var pos = frames[i].position;
+        var img = spriteSheetQuebrado.get(pos.x, pos.y, 500,500);
+        barcoAnimacaoQuebrado.push(img);
+    }
+    var frames = splashDados.frames;
+    for(var i = 0; i < frames.length; i++){
+        var pos = frames[i].position;
+        var img = splashSheet.get(pos.x, pos.y, 500,500);
+        splashAnimacao.push(img);
+    }
+   
 
     rectMode(CENTER);
     //configura para posicionar as imagens a partir do centro
@@ -51,7 +69,7 @@ function setup() {
     angleMode(DEGREES);
 
     //cria um objeto da classe torre
-    torre = new Torre(160,350,150,510)
+    torre = new Torre(160,350,150,460)
     
 
     //cria um objeto da classe canhão
