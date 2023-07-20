@@ -8,7 +8,7 @@ class Barco{
         this.size = 140
     }
     destruir(n){
-      
+        this.animacao = barcoAnimacaoQuebrado;
         this.size = 280
         //comando que adiciona um delay (intervalo de tempo)
         setTimeout(()=>{
@@ -25,10 +25,8 @@ class Barco{
     }
 
     show(){
-        //gera valores 0 1 2 3 em loop
         var i = Math.floor(this.speed % this.animacao.length);
         var pos = this.body.position;
         image (this.animacao[i], pos.x, pos.y, this.size,this.size)
-        
     }
 }
